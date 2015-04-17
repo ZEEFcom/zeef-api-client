@@ -14,6 +14,11 @@ import com.zeef.client.model.ScratchPadLink;
 
 public class ScratchPadLinkApi {
 
+	private final ApiInvoker apiInvoker;
+
+	public ScratchPadLinkApi(ApiInvoker apiInvoker) {
+		this.apiInvoker = apiInvoker;
+	}
 
 	/**
 	 * Retrieve a scratch pad link
@@ -22,8 +27,6 @@ public class ScratchPadLinkApi {
 	 * @return ScratchPadLink
 	 */
 	public ScratchPadLink getById(Long id) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -59,8 +62,6 @@ public class ScratchPadLinkApi {
 	 * @return void
 	 */
 	public void delete(Long id) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -99,8 +100,6 @@ public class ScratchPadLinkApi {
 	 * @return void
 	 */
 	public void moveToBlock(Long id, Long blockId, String title, String description, Integer ranking) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 

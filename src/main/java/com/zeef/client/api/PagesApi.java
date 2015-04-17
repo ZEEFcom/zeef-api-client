@@ -16,6 +16,11 @@ import com.zeef.client.model.PagesOverview;
 
 public class PagesApi {
 
+	private final ApiInvoker apiInvoker;
+
+	public PagesApi(ApiInvoker apiInvoker) {
+		this.apiInvoker = apiInvoker;
+	}
 
 	/**
 	 * Return all international pages
@@ -24,8 +29,6 @@ public class PagesApi {
 	 * @return PagesOverview
 	 */
 	public PagesOverview getAllInternationalPages(PageTypeEnum type) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -63,8 +66,6 @@ public class PagesApi {
 	 * @return PagesOverview
 	 */
 	public PagesOverview getAllPagesByRegion(String regionCode, PageTypeEnum type) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -103,8 +104,6 @@ public class PagesApi {
 	 * @return PagesOverview
 	 */
 	public PagesOverview getMyPages() {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 

@@ -14,6 +14,11 @@ import com.zeef.client.model.Link;
 
 public class LinkApi {
 
+	private final ApiInvoker apiInvoker;
+
+	public LinkApi(ApiInvoker apiInvoker) {
+		this.apiInvoker = apiInvoker;
+	}
 
 	/**
 	 * Retrieve a link by its ID
@@ -22,8 +27,6 @@ public class LinkApi {
 	 * @return Link
 	 */
 	public Link getByID(Long id) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -62,8 +65,6 @@ public class LinkApi {
 	 * @return Link
 	 */
 	public Link update(Long id, String url, String title, String description) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -111,8 +112,6 @@ public class LinkApi {
 	 * @return void
 	 */
 	public void delete(Long id) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 

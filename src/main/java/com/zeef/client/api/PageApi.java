@@ -16,6 +16,11 @@ import com.zeef.client.model.Page.PageTypeEnum;
 
 public class PageApi {
 
+	private final ApiInvoker apiInvoker;
+
+	public PageApi(ApiInvoker apiInvoker) {
+		this.apiInvoker = apiInvoker;
+	}
 
 	/**
 	 * Create a new page
@@ -26,8 +31,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page create(String displayName, String languageCode, PageTypeEnum type) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -73,8 +76,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page getPageByAliasAndUsername(String alias, String username) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -114,8 +115,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page getPageByAliasUsernameAndRegion(String alias, String username, String region) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -155,8 +154,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page getPageByID(Long id) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -194,8 +191,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page updatePage(Long id, String type, String markdownDescription) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -244,8 +239,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page addBlock(Long id, BlockType blockType, String title, Integer columnIndex, Boolean publiclyVisible, Boolean promoted) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -301,8 +294,6 @@ public class PageApi {
 	 * @return void
 	 */
 	public void requestPublication(Long id) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 

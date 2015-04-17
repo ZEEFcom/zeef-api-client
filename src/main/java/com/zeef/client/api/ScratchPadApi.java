@@ -14,6 +14,11 @@ import com.zeef.client.model.ScratchPad;
 
 public class ScratchPadApi {
 
+	private final ApiInvoker apiInvoker;
+
+	public ScratchPadApi(ApiInvoker apiInvoker) {
+		this.apiInvoker = apiInvoker;
+	}
 
 	/**
 	 * Retrieve the scratch pad belonging to the current user
@@ -21,8 +26,6 @@ public class ScratchPadApi {
 	 * @return ScratchPad
 	 */
 	public ScratchPad getMine() {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -55,8 +58,6 @@ public class ScratchPadApi {
 	 * @return ScratchPad
 	 */
 	public ScratchPad addLink(String url) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 

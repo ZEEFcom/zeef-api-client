@@ -14,6 +14,11 @@ import com.zeef.client.model.Block;
 
 public class BlockApi {
 
+	private final ApiInvoker apiInvoker;
+
+	public BlockApi(ApiInvoker apiInvoker) {
+		this.apiInvoker = apiInvoker;
+	}
 
 	/**
 	 * Retrieve a block
@@ -22,8 +27,6 @@ public class BlockApi {
 	 * @return Block
 	 */
 	public Block getByBlockID(Long id) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -68,8 +71,6 @@ public class BlockApi {
 	 */
 	public Block updateBlock(Long id, String title, Boolean promoted, Boolean publiclyVisible, String markdownText, String markdownDescription,
 			String feedURL, Integer maxLinks, Integer refreshIntervalMinutes) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -137,8 +138,6 @@ public class BlockApi {
 	 * @return void
 	 */
 	public void deleteBlockByID(Long id) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -177,8 +176,6 @@ public class BlockApi {
 	 * @return Block
 	 */
 	public Block addLink(Long id, String url, String title, String description, Integer ranking) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
@@ -232,8 +229,6 @@ public class BlockApi {
 	 * @return Block
 	 */
 	public Block moveLink(Long id, Long linkID, Integer newPosition) {
-		ApiInvoker apiInvoker = ApiInvoker.getInstance();
-
 		Object postBody = null;
 
 
