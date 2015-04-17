@@ -5,7 +5,7 @@ This project contains the client library for the ZEEF API.
 
 Usage
 ---------------------
-To use the ZEEF API, you need to have an API access token for the user you wish to access the API as. Once you have this token, you first need to create an ApiInvoker instance and set the authorization header for this instance:
+To use the ZEEF API, you need to have an [API access token](https://zeef.io/docs/api/#api_authentication) for the user you wish to access the API as. Once you have this token, you first need to create an ApiInvoker instance and set the authorization header for this instance:
 
     ApiInvoker apiInvoker = new ApiInvoker();
     apiInvoker.addHeader("Authorization", "OmniLogin auth=" + apiToken);
