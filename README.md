@@ -10,7 +10,7 @@ To use the ZEEF API, you need to have an API access token for the user you wish 
     ApiInvoker apiInvoker = new ApiInvoker();
     apiInvoker.addHeader("Authorization", "OmniLogin auth=" + apiToken);
 
-Where apiToken is a variable the your API token. Please keep in mind that the ApiInvoker instances are not thread safe, but can be used for multiple requests within the same thread. The apiInvoker instance should be closed once it is no longer needed. 
+Where apiToken is a variable that contains the API token. Please keep in mind that the ApiInvoker instances are not thread safe, but can be used for multiple requests within the same thread. The apiInvoker instance should be closed once it is no longer needed. 
 
 You can then create an api object instance for the API endpoint you wish to use. Although the apiInvoker is not thread-safe, it can be reused for multiple api instances as long as they are used within the same thread and for the same user:
 
