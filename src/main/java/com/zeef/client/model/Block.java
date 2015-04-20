@@ -1,6 +1,7 @@
 package com.zeef.client.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		              @JsonSubTypes.Type(name = "mirroredBlock", value = MirroredBlock.class),
 		              @JsonSubTypes.Type(name = "latestPagesBlock", value = LatestPagesBlock.class)
               })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Block {
 
 	private Long id = null;

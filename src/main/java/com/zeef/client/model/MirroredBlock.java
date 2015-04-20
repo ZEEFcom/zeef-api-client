@@ -1,8 +1,9 @@
 package com.zeef.client.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MirroredBlock extends Block {
 
 	private Long originalPageID = null;

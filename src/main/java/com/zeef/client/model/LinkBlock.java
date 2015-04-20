@@ -3,9 +3,10 @@ package com.zeef.client.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LinkBlock extends Block {
 
 	private String markdownDescription = null;
