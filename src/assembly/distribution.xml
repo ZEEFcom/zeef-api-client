@@ -37,5 +37,12 @@
                 <include>*.txt</include>
             </includes>
         </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}/generated-resources/licenses</directory>
+            <outputDirectory>/third-party-licenses</outputDirectory>
+            <includes>
+                <include>*</include>
+            </includes>
+        </fileSet>
     </fileSets>
 </assembly>
