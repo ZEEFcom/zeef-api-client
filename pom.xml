@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <prerequisites>
@@ -10,7 +9,7 @@
     <artifactId>zeef-api-client</artifactId>
     <packaging>jar</packaging>
     <name>ZEEF API Client</name>
-    <version>2015.3-SNAPSHOT</version>
+    <version>2015.3</version>
 
     <url>https://github.com/ZEEFcom/zeef-api-client</url>
     <organization>
@@ -77,6 +76,46 @@
                         <masterBranchName>live</masterBranchName>
                         <developBranchName>master</developBranchName>
                     </flowInitContext>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assembly/distribution.xml</descriptor>
+                    </descriptors>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>update-file-headers</id>
+                        <goals>
+                            <goal>update-file-header</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                    </execution>
+                    <execution>
+                        <id>include-third-party-licenses</id>
+                        <goals>
+                            <goal>add-third-party</goal>
+                            <goal>download-licenses</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <licenseName>apache_v2</licenseName>
+                    <sectionDelimiter>----------------------------------------</sectionDelimiter>
+                    <roots>
+                        <root>src/main/java</root>
+                    </roots>
                 </configuration>
             </plugin>
         </plugins>

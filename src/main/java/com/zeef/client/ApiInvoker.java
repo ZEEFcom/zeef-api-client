@@ -1,62 +1,81 @@
 package com.zeef.client;
 
+/*
+ * #%L
+ * ZEEF API Client
+ * ----------------------------------------
+ * Copyright (C) 2015 ZEEF
+ * ----------------------------------------
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.GenericType;
 
-public final class ApiInvoker {
+public final class ApiInvoker implements AutoCloseable {
 
-	private static final ApiInvoker INSTANCE = new ApiInvoker();
+	private static ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
-	private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+	private static Map<String, String> defaultHeaders = new HashMap<>();
+	private static String apiBasePath = "https://zeef.io/api";
 
-	private final Map<String, String> defaultHeaders = new HashMap<>();
-	private String apiBasePath = "https://zeef.io/api";
+	private Map<String, String> headers = new HashMap<>();
 
 	private Client client;
 
-	private ApiInvoker() {
+	public ApiInvoker() {
 		client = ClientBuilder.newClient();
 	}
 
-	public void addDefaultHeader(String key, String value) {
+	public static void addDefaultHeader(String key, String value) {
 		readWriteLock.writeLock().lock();
 		try {
 			defaultHeaders.put(key, value);
-		} finally {
+		}
+		finally {
 			readWriteLock.writeLock().unlock();
 		}
 	}
 
-	public String getApiBasePath() {
+	public static String getApiBasePath() {
 		readWriteLock.readLock().lock();
 		try {
 			return apiBasePath;
-		} finally {
+		}
+		finally {
 			readWriteLock.readLock().unlock();
 		}
 	}
 
-	public void setApiBasePath(String apiBasePath) {
+	public static void setApiBasePath(String newApiBasePath) {
 		readWriteLock.writeLock().lock();
 		try {
-			this.apiBasePath = apiBasePath;
-		} finally {
+			apiBasePath = newApiBasePath;
+		}
+		finally {
 			readWriteLock.writeLock().unlock();
 		}
 	}
 
-	public static ApiInvoker getInstance() {
-		return INSTANCE;
+	public void addHeader(String key, String value) {
+		headers.put(key, value);
 	}
 
 	public <T> T invokeAPI(GenericType<T> returnType, String path, String method, Map<String, String> queryParams, Map<String, String> pathParams,
@@ -80,7 +99,8 @@ public final class ApiInvoker {
 			}
 
 			return result;
-		} finally {
+		}
+		finally {
 			readWriteLock.readLock().unlock();
 		}
 	}
@@ -148,8 +168,12 @@ public final class ApiInvoker {
 			invocationBuilder.header(defaultHeaderEntry.getKey(), defaultHeaderEntry.getValue());
 		}
 
-		for (Entry<String, String> headerEntry : headerParams.entrySet()) {
+		for (Entry<String, String> headerEntry : headers.entrySet()) {
 			invocationBuilder.header(headerEntry.getKey(), headerEntry.getValue());
+		}
+
+		for (Entry<String, String> headerParamEntry : headerParams.entrySet()) {
+			invocationBuilder.header(headerParamEntry.getKey(), headerParamEntry.getValue());
 		}
 	}
 
@@ -164,5 +188,10 @@ public final class ApiInvoker {
 			webTarget = webTarget.queryParam(queryParamEntry.getKey(), queryParamEntry.getValue());
 		}
 		return webTarget;
+	}
+
+	@Override
+	public void close() {
+		client.close();
 	}
 }
