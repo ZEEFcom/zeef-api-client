@@ -31,6 +31,37 @@ That's all there is to it, now you can start invoking calls on the ZEEF API.
         }
     }
 
+Maven/Gradle dependency
+---------------------
+To use the library as a Maven or Gradle dependency, you need to register the following (temporary) Maven repository with your project:
+
+*Maven*
+
+    <repository>
+	    <id>zeef-api-client</id>
+	    <url>https://zeefcom.github.io/repository</url>
+	</repository>
+	
+*Gradle*
+
+    maven {
+        url "http://repo.mycompany.com/maven2"
+    }
+    
+You can then add the zeef-api-client library to your project as a dependency:
+
+*Maven*
+
+    <dependency>
+        <groupId>com.zeef</groupId>
+        <artifactId>zeef-api-client</artifactId>
+        <version>2015.3</version>
+    </dependency>
+
+*Gradle*
+
+    compile 'com.zeef:zeef-api-client:2015.3'
+
 More information
 ---------------------
 
