@@ -45,7 +45,7 @@ To use the library as a Maven or Gradle dependency, you need to register the fol
 *Gradle*
 
     maven {
-        url "http://repo.mycompany.com/maven2"
+        url "https://zeefcom.github.io/repository"
     }
     
 You can then add the zeef-api-client library to your project as a dependency:
