@@ -24,6 +24,7 @@ package com.zeef.client.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Profile {
 
@@ -151,15 +152,15 @@ public class Profile {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Profile {\n");
 
-		sb.append("  id: ").append(id).append("\n");
-		sb.append("  markdownSummary: ").append(markdownSummary).append("\n");
-		sb.append("  htmlSummary: ").append(htmlSummary).append("\n");
-		sb.append("  profileImageURL: ").append(profileImageURL).append("\n");
-		sb.append("  facebookURL: ").append(facebookURL).append("\n");
-		sb.append("  twitterURL: ").append(twitterURL).append("\n");
-		sb.append("  linkedinURL: ").append(linkedinURL).append("\n");
-		sb.append("  googlePlusURL: ").append(googlePlusURL).append("\n");
-		sb.append("  twentyFourSessionsURL: ").append(twentyFourSessionsURL).append("\n");
+		sb.append("  id: ").append(getId()).append("\n");
+		sb.append("  markdownSummary: ").append(getMarkdownSummary()).append("\n");
+		sb.append("  htmlSummary: ").append(getHtmlSummary()).append("\n");
+		sb.append("  profileImageURL: ").append(getProfileImageURL()).append("\n");
+		sb.append("  facebookURL: ").append(getFacebookURL()).append("\n");
+		sb.append("  twitterURL: ").append(getTwitterURL()).append("\n");
+		sb.append("  linkedinURL: ").append(getLinkedinURL()).append("\n");
+		sb.append("  googlePlusURL: ").append(getGooglePlusURL()).append("\n");
+		sb.append("  twentyFourSessionsURL: ").append(getTwentyFourSessionsURL()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

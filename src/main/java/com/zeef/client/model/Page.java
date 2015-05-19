@@ -26,6 +26,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Page {
 
@@ -33,6 +34,8 @@ public class Page {
 	private Subject subject = null;
 	private User owner = null;
 	private Profile profile = null;
+	private String imageURL = null;
+	private String bannerImageURL = null;
 	private String markdownDescription = null;
 	private String htmlDescription = null;
 	private String plainTextDescription = null;
@@ -41,7 +44,6 @@ public class Page {
 		SUBJECT, COMPANY, PERSONAL,
 	}
 
-	;
 	private PageTypeEnum pageType = null;
 	private List<Block> blocks = new ArrayList<Block>();
 
@@ -91,6 +93,30 @@ public class Page {
 
 	public void setProfile(Profile profile) {
 		this.profile = profile;
+	}
+
+
+	/**
+	 **/
+	@JsonProperty("imageURL")
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+
+	/**
+	 **/
+	@JsonProperty("bannerImageURL")
+	public String getBannerImageURL() {
+		return bannerImageURL;
+	}
+
+	public void setBannerImageURL(String bannerImageURL) {
+		this.bannerImageURL = bannerImageURL;
 	}
 
 
@@ -159,15 +185,17 @@ public class Page {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Page {\n");
 
-		sb.append("  id: ").append(id).append("\n");
-		sb.append("  subject: ").append(subject).append("\n");
-		sb.append("  owner: ").append(owner).append("\n");
-		sb.append("  profile: ").append(profile).append("\n");
-		sb.append("  markdownDescription: ").append(markdownDescription).append("\n");
-		sb.append("  htmlDescription: ").append(htmlDescription).append("\n");
-		sb.append("  plainTextDescription: ").append(plainTextDescription).append("\n");
-		sb.append("  pageType: ").append(pageType).append("\n");
-		sb.append("  blocks: ").append(blocks).append("\n");
+		sb.append("  id: ").append(getId()).append("\n");
+		sb.append("  subject: ").append(getSubject()).append("\n");
+		sb.append("  owner: ").append(getOwner()).append("\n");
+		sb.append("  profile: ").append(getProfile()).append("\n");
+		sb.append("  imageURL: ").append(getImageURL()).append("\n");
+		sb.append("  bannerImageURL: ").append(getBannerImageURL()).append("\n");
+		sb.append("  markdownDescription: ").append(getMarkdownDescription()).append("\n");
+		sb.append("  htmlDescription: ").append(getHtmlDescription()).append("\n");
+		sb.append("  plainTextDescription: ").append(getPlainTextDescription()).append("\n");
+		sb.append("  pageType: ").append(getPageType()).append("\n");
+		sb.append("  blocks: ").append(getBlocks()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

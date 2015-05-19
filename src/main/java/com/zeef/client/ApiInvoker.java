@@ -34,7 +34,7 @@ public final class ApiInvoker implements AutoCloseable {
 	private static ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
 	private static Map<String, String> defaultHeaders = new HashMap<>();
-	private static String apiBasePath = "https://zeef.io/api";
+	private static String apiBasePath = "";
 
 	private Map<String, String> headers = new HashMap<>();
 

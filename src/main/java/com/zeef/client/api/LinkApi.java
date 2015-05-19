@@ -36,9 +36,11 @@ public class LinkApi {
 
 	private final ApiInvoker apiInvoker;
 
+
 	public LinkApi(ApiInvoker apiInvoker) {
 		this.apiInvoker = apiInvoker;
 	}
+
 
 	/**
 	 * Retrieve a link by its ID
@@ -47,7 +49,6 @@ public class LinkApi {
 	 * @return Link
 	 */
 	public Link getByID(Long id) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -55,23 +56,11 @@ public class LinkApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
-
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
 
 		return apiInvoker.invokeAPI(new GenericType<Link>() {
-		}, "/link/{id}", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/link/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -85,6 +74,7 @@ public class LinkApi {
 	 * @return Link
 	 */
 	public Link update(Long id, String url, String title, String description) {
+
 		Object postBody = null;
 
 
@@ -93,7 +83,7 @@ public class LinkApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
 		String[] contentTypes = {
@@ -101,6 +91,7 @@ public class LinkApi {
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
@@ -120,6 +111,7 @@ public class LinkApi {
 			postBody = form;
 		}
 
+
 		return apiInvoker.invokeAPI(new GenericType<Link>() {
 		}, "/link/{id}", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
@@ -132,7 +124,6 @@ public class LinkApi {
 	 * @return void
 	 */
 	public void delete(Long id) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -140,23 +131,10 @@ public class LinkApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
-
-
-		apiInvoker.invokeAPI(null, "/link/{id}", "DELETE", queryParams, pathParams, postBody, headerParams, contentType);
+		apiInvoker.invokeAPI(null, "/link/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
 	}
 
 }

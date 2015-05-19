@@ -23,7 +23,7 @@ package com.zeef.client.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.zeef.client.model.Page.PageTypeEnum;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PageOverview {
@@ -38,8 +38,11 @@ public class PageOverview {
 		NEW, UNDER_REVIEW, PUBLISHED, NEEDS_WORK, UNPUBLISHED,
 	}
 
-
 	private StatusEnum status = null;
+
+	public enum PageTypeEnum {
+		SUBJECT, COMPANY, PERSONAL,
+	}
 
 	private PageTypeEnum pageType = null;
 	private String imageURL = null;
@@ -146,14 +149,14 @@ public class PageOverview {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PageOverview {\n");
 
-		sb.append("  id: ").append(id).append("\n");
-		sb.append("  url: ").append(url).append("\n");
-		sb.append("  subjectName: ").append(subjectName).append("\n");
-		sb.append("  curator: ").append(curator).append("\n");
-		sb.append("  languageCode: ").append(languageCode).append("\n");
-		sb.append("  status: ").append(status).append("\n");
-		sb.append("  pageType: ").append(pageType).append("\n");
-		sb.append("  imageURL: ").append(imageURL).append("\n");
+		sb.append("  id: ").append(getId()).append("\n");
+		sb.append("  url: ").append(getUrl()).append("\n");
+		sb.append("  subjectName: ").append(getSubjectName()).append("\n");
+		sb.append("  curator: ").append(getCurator()).append("\n");
+		sb.append("  languageCode: ").append(getLanguageCode()).append("\n");
+		sb.append("  status: ").append(getStatus()).append("\n");
+		sb.append("  pageType: ").append(getPageType()).append("\n");
+		sb.append("  imageURL: ").append(getImageURL()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

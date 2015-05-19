@@ -1,4 +1,4 @@
-package com.zeef.client.model;
+package com.zeef.client.api;
 
 /*
  * #%L
@@ -20,6 +20,21 @@ package com.zeef.client.model;
  * #L%
  */
 
-public enum BlockType {
-	LINK, TEXT, FEED, IMAGE, LATEST_PAGES;
+import java.text.SimpleDateFormat;
+import java.util.Objects;
+
+final class ApiUtil {
+
+	private static final String TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+
+	private ApiUtil() {
+	}
+
+	static String toString(Object o) {
+		if (o instanceof java.util.Date) {
+			return new SimpleDateFormat(TIMESTAMP_FORMAT).format(o);
+		}
+
+		return Objects.toString(o);
+	}
 }

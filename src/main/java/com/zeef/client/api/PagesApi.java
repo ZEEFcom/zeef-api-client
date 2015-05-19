@@ -20,26 +20,51 @@ package com.zeef.client.api;
  * #L%
  */
 
-import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 
 import com.zeef.client.ApiInvoker;
-import com.zeef.client.model.Page.PageTypeEnum;
 import com.zeef.client.model.PagesOverview;
 
 public class PagesApi {
 
 	private final ApiInvoker apiInvoker;
 
+
+	public enum PageType {
+		SUBJECT("SUBJECT"),
+		COMPANY("COMPANY"),
+		PERSONAL("PERSONAL"),;
+		private final String value;
+
+		private PageType(String value) {
+			this.value = value;
+		}
+
+		public String toString() {
+			return "" + value;
+		}
+
+		public static PageType getByValue(String value) {
+			for (PageType item : PageType.values()) {
+				if (Objects.equals(item.value, value)) {
+					return item;
+				}
+			}
+
+			return null;
+		}
+
+	}
+
+
 	public PagesApi(ApiInvoker apiInvoker) {
 		this.apiInvoker = apiInvoker;
 	}
+
 
 	/**
 	 * Return all international pages
@@ -47,8 +72,7 @@ public class PagesApi {
 	 * @param type
 	 * @return PagesOverview
 	 */
-	public PagesOverview getAllInternationalPages(PageTypeEnum type) {
-		Object postBody = null;
+	public PagesOverview getAllInternationalPages(PageType type) {
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -56,24 +80,12 @@ public class PagesApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 		if (type != null) {
-			queryParams.put("type", Objects.toString(type));
+			queryParams.put("type", ApiUtil.toString(type));
 		}
 
-
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
 
 		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
-		}, "/pages/all", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/pages/all", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -84,8 +96,7 @@ public class PagesApi {
 	 * @param type
 	 * @return PagesOverview
 	 */
-	public PagesOverview getAllPagesByRegion(String regionCode, PageTypeEnum type) {
-		Object postBody = null;
+	public PagesOverview getAllPagesByRegion(String regionCode, PageType type) {
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -93,27 +104,15 @@ public class PagesApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 		if (type != null) {
-			queryParams.put("type", Objects.toString(type));
+			queryParams.put("type", ApiUtil.toString(type));
 		}
 
 
-		pathParams.put("regionCode", Objects.toString(regionCode));
+		pathParams.put("regionCode", ApiUtil.toString(regionCode));
 
-
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
 
 		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
-		}, "/pages/all/{regionCode}", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/pages/all/{regionCode}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -123,7 +122,6 @@ public class PagesApi {
 	 * @return PagesOverview
 	 */
 	public PagesOverview getMyPages() {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -131,73 +129,47 @@ public class PagesApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
-
 		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
-		}, "/pages/mine", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/pages/mine", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
-  /**
-   * Search for pages
-   *
-   * @param query
-   * @param maxResults
-   * @param firstResult
-   * @param preferredLanguageCode
-   * @return PagesOverview
-   */
-  public PagesOverview search(String query, Integer maxResults, Integer firstResult, String preferredLanguageCode) {
-    Object postBody = null;
+	/**
+	 * Search for pages
+	 *
+	 * @param query
+	 * @param maxResults
+	 * @param firstResult
+	 * @param preferredLanguageCode
+	 * @return PagesOverview
+	 */
+	public PagesOverview search(String query, Integer maxResults, Integer firstResult, String preferredLanguageCode) {
 
 
-    Map<String, String> pathParams = new HashMap<>();
-    Map<String, String> queryParams = new HashMap<>();
-    Map<String, String> headerParams = new HashMap<>();
+		Map<String, String> pathParams = new HashMap<>();
+		Map<String, String> queryParams = new HashMap<>();
+		Map<String, String> headerParams = new HashMap<>();
 
-    if (query != null) {
-      queryParams.put("query", Objects.toString(query));
-    }
+		if (query != null) {
+			queryParams.put("query", ApiUtil.toString(query));
+		}
 
-    if (maxResults != null) {
-      queryParams.put("maxResults", Objects.toString(maxResults));
-    }
+		if (maxResults != null) {
+			queryParams.put("maxResults", ApiUtil.toString(maxResults));
+		}
 
-    if (firstResult != null) {
-      queryParams.put("firstResult", Objects.toString(firstResult));
-    }
+		if (firstResult != null) {
+			queryParams.put("firstResult", ApiUtil.toString(firstResult));
+		}
 
-    if (preferredLanguageCode != null) {
-      queryParams.put("preferredLanguageCode", Objects.toString(preferredLanguageCode));
-    }
-
-
+		if (preferredLanguageCode != null) {
+			queryParams.put("preferredLanguageCode", ApiUtil.toString(preferredLanguageCode));
+		}
 
 
-    String[] contentTypes = {
-      "application/x-www-form-urlencoded",
-    };
+		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
+		}, "/pages/search", "GET", queryParams, pathParams, null, headerParams, null);
 
-    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-    if(contentType.equals(APPLICATION_FORM_URLENCODED)) {
-      Form form = new Form();
-
-      postBody = form;
-    }
-
-    return apiInvoker.invokeAPI(new GenericType<PagesOverview>(){}, "/pages/search", "GET", queryParams, pathParams, postBody, headerParams, contentType);
-
-  }
+	}
 
 }

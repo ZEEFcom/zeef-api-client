@@ -24,11 +24,25 @@ package com.zeef.client.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
+	private Long id = null;
 	private String username = null;
 	private String fullName = null;
+
+
+	/**
+	 **/
+	@JsonProperty("id")
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 
 	/**
@@ -60,8 +74,9 @@ public class User {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class User {\n");
 
-		sb.append("  username: ").append(username).append("\n");
-		sb.append("  fullName: ").append(fullName).append("\n");
+		sb.append("  id: ").append(getId()).append("\n");
+		sb.append("  username: ").append(getUsername()).append("\n");
+		sb.append("  fullName: ").append(getFullName()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

@@ -26,6 +26,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PagesOverview {
 
@@ -49,7 +50,7 @@ public class PagesOverview {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class PagesOverview {\n");
 
-		sb.append("  pageOverviews: ").append(pageOverviews).append("\n");
+		sb.append("  pageOverviews: ").append(getPageOverviews()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

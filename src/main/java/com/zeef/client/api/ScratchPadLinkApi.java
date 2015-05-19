@@ -36,9 +36,11 @@ public class ScratchPadLinkApi {
 
 	private final ApiInvoker apiInvoker;
 
+
 	public ScratchPadLinkApi(ApiInvoker apiInvoker) {
 		this.apiInvoker = apiInvoker;
 	}
+
 
 	/**
 	 * Retrieve a scratch pad link
@@ -47,7 +49,6 @@ public class ScratchPadLinkApi {
 	 * @return ScratchPadLink
 	 */
 	public ScratchPadLink getById(Long id) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -55,23 +56,11 @@ public class ScratchPadLinkApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
-
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
 
 		return apiInvoker.invokeAPI(new GenericType<ScratchPadLink>() {
-		}, "/scratchPadLink/{id}", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/scratchPadLink/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -82,7 +71,6 @@ public class ScratchPadLinkApi {
 	 * @return void
 	 */
 	public void delete(Long id) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -90,23 +78,10 @@ public class ScratchPadLinkApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
-
-
-		apiInvoker.invokeAPI(null, "/scratchPadLink/{id}", "DELETE", queryParams, pathParams, postBody, headerParams, contentType);
+		apiInvoker.invokeAPI(null, "/scratchPadLink/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
 	}
 
 	/**
@@ -120,6 +95,7 @@ public class ScratchPadLinkApi {
 	 * @return void
 	 */
 	public void moveToBlock(Long id, Long blockId, String title, String description, Integer ranking) {
+
 		Object postBody = null;
 
 
@@ -128,7 +104,7 @@ public class ScratchPadLinkApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
 		String[] contentTypes = {
@@ -136,6 +112,7 @@ public class ScratchPadLinkApi {
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
