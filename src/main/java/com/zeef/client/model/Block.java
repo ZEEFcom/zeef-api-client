@@ -21,20 +21,21 @@ package com.zeef.client.model;
  */
 
 
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(include = JsonTypeInfo.As.PROPERTY, use = JsonTypeInfo.Id.NAME, property = "@type")
+@JsonTypeInfo(include = PROPERTY, use = NAME, property = "@type")
 @JsonSubTypes({
-		              @JsonSubTypes.Type(name = "textBlock", value = TextBlock.class),
-		              @JsonSubTypes.Type(name = "linkBlock", value = LinkBlock.class),
-		              @JsonSubTypes.Type(name = "feedBlock", value = FeedBlock.class),
-		              @JsonSubTypes.Type(name = "imageBlock", value = ImageBlock.class),
-		              @JsonSubTypes.Type(name = "mirroredBlock", value = MirroredBlock.class),
-		              @JsonSubTypes.Type(name = "latestPagesBlock", value = LatestPagesBlock.class)
-              })
+		@JsonSubTypes.Type(name = "textBlock", value = TextBlock.class),
+		@JsonSubTypes.Type(name = "linkBlock", value = LinkBlock.class),
+		@JsonSubTypes.Type(name = "imageBlock", value = ImageBlock.class),
+		@JsonSubTypes.Type(name = "mirroredBlock", value = MirroredBlock.class),
+})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Block {
 
@@ -123,12 +124,12 @@ public class Block {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Block {\n");
 
-		sb.append("  id: ").append(id).append("\n");
-		sb.append("  owningPageID: ").append(owningPageID).append("\n");
-		sb.append("  publiclyVisible: ").append(publiclyVisible).append("\n");
-		sb.append("  promoted: ").append(promoted).append("\n");
-		sb.append("  title: ").append(title).append("\n");
-		sb.append("  columnIndexHint: ").append(columnIndexHint).append("\n");
+		sb.append("  id: ").append(getId()).append("\n");
+		sb.append("  owningPageID: ").append(getOwningPageID()).append("\n");
+		sb.append("  publiclyVisible: ").append(getPubliclyVisible()).append("\n");
+		sb.append("  promoted: ").append(getPromoted()).append("\n");
+		sb.append("  title: ").append(getTitle()).append("\n");
+		sb.append("  columnIndexHint: ").append(getColumnIndexHint()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

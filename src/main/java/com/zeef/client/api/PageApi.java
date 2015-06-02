@@ -30,17 +30,73 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 
 import com.zeef.client.ApiInvoker;
-import com.zeef.client.model.BlockType;
 import com.zeef.client.model.Page;
-import com.zeef.client.model.Page.PageTypeEnum;
 
 public class PageApi {
 
 	private final ApiInvoker apiInvoker;
 
+
+	public enum PageType {
+		SUBJECT("SUBJECT"),
+		COMPANY("COMPANY"),
+		PERSONAL("PERSONAL"),;
+		private final String value;
+
+		private PageType(String value) {
+			this.value = value;
+		}
+
+		public String toString() {
+			return "" + value;
+		}
+
+		public static PageType getByValue(String value) {
+			for (PageType item : PageType.values()) {
+				if (Objects.equals(item.value, value)) {
+					return item;
+				}
+			}
+
+			return null;
+		}
+
+	}
+
+
+	public enum UserCreatableBlockType {
+		LINK("LINK"),
+		TEXT("TEXT"),
+		FEED("FEED"),
+		IMAGE("IMAGE"),
+		LATEST_PAGES("LATEST_PAGES"),;
+		private final String value;
+
+		private UserCreatableBlockType(String value) {
+			this.value = value;
+		}
+
+		public String toString() {
+			return "" + value;
+		}
+
+		public static UserCreatableBlockType getByValue(String value) {
+			for (UserCreatableBlockType item : UserCreatableBlockType.values()) {
+				if (Objects.equals(item.value, value)) {
+					return item;
+				}
+			}
+
+			return null;
+		}
+
+	}
+
+
 	public PageApi(ApiInvoker apiInvoker) {
 		this.apiInvoker = apiInvoker;
 	}
+
 
 	/**
 	 * Create a new page
@@ -50,7 +106,8 @@ public class PageApi {
 	 * @param type
 	 * @return Page
 	 */
-	public Page create(String displayName, String languageCode, PageTypeEnum type) {
+	public Page create(String displayName, String languageCode, PageType type) {
+
 		Object postBody = null;
 
 
@@ -64,6 +121,7 @@ public class PageApi {
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
@@ -83,6 +141,7 @@ public class PageApi {
 			postBody = form;
 		}
 
+
 		return apiInvoker.invokeAPI(new GenericType<Page>() {
 		}, "/page/create", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
@@ -96,7 +155,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page getPageByAliasAndUsername(String alias, String username) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -104,25 +162,13 @@ public class PageApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("alias", Objects.toString(alias));
+		pathParams.put("alias", ApiUtil.toString(alias));
 
-		pathParams.put("username", Objects.toString(username));
+		pathParams.put("username", ApiUtil.toString(username));
 
-
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
 
 		return apiInvoker.invokeAPI(new GenericType<Page>() {
-		}, "/page/{alias}/{username}", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/page/{alias}/{username}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -135,7 +181,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page getPageByAliasUsernameAndRegion(String alias, String username, String region) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -143,27 +188,15 @@ public class PageApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("alias", Objects.toString(alias));
+		pathParams.put("alias", ApiUtil.toString(alias));
 
-		pathParams.put("username", Objects.toString(username));
+		pathParams.put("username", ApiUtil.toString(username));
 
-		pathParams.put("region", Objects.toString(region));
+		pathParams.put("region", ApiUtil.toString(region));
 
-
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
 
 		return apiInvoker.invokeAPI(new GenericType<Page>() {
-		}, "/page/{alias}/{username}/{region}", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/page/{alias}/{username}/{region}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -174,7 +207,6 @@ public class PageApi {
 	 * @return Page
 	 */
 	public Page getPageByID(Long id) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -182,23 +214,11 @@ public class PageApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
-
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
 
 		return apiInvoker.invokeAPI(new GenericType<Page>() {
-		}, "/page/{id}", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/page/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -210,7 +230,8 @@ public class PageApi {
 	 * @param markdownDescription
 	 * @return Page
 	 */
-	public Page updatePage(Long id, String type, String markdownDescription) {
+	public Page updatePage(Long id, PageType type, String markdownDescription) {
+
 		Object postBody = null;
 
 
@@ -219,7 +240,7 @@ public class PageApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
 		String[] contentTypes = {
@@ -227,6 +248,7 @@ public class PageApi {
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
@@ -241,6 +263,7 @@ public class PageApi {
 
 			postBody = form;
 		}
+
 
 		return apiInvoker.invokeAPI(new GenericType<Page>() {
 		}, "/page/{id}", "POST", queryParams, pathParams, postBody, headerParams, contentType);
@@ -258,7 +281,8 @@ public class PageApi {
 	 * @param promoted
 	 * @return Page
 	 */
-	public Page addBlock(Long id, BlockType blockType, String title, Integer columnIndex, Boolean publiclyVisible, Boolean promoted) {
+	public Page addBlock(Long id, UserCreatableBlockType blockType, String title, Integer columnIndex, Boolean publiclyVisible, Boolean promoted) {
+
 		Object postBody = null;
 
 
@@ -267,7 +291,7 @@ public class PageApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
 		String[] contentTypes = {
@@ -275,6 +299,7 @@ public class PageApi {
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
@@ -302,6 +327,7 @@ public class PageApi {
 			postBody = form;
 		}
 
+
 		return apiInvoker.invokeAPI(new GenericType<Page>() {
 		}, "/page/{id}/addBlock", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
@@ -314,7 +340,6 @@ public class PageApi {
 	 * @return void
 	 */
 	public void requestPublication(Long id) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -322,23 +347,10 @@ public class PageApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
-
-
-		apiInvoker.invokeAPI(null, "/page/{id}/requestPublication", "POST", queryParams, pathParams, postBody, headerParams, contentType);
+		apiInvoker.invokeAPI(null, "/page/{id}/requestPublication", "POST", queryParams, pathParams, null, headerParams, null);
 	}
 
 }

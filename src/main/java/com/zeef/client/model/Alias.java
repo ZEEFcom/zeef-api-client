@@ -24,6 +24,7 @@ package com.zeef.client.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Alias {
 
@@ -86,10 +87,10 @@ public class Alias {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class Alias {\n");
 
-		sb.append("  id: ").append(id).append("\n");
-		sb.append("  name: ").append(name).append("\n");
-		sb.append("  displayName: ").append(displayName).append("\n");
-		sb.append("  defaultAlias: ").append(defaultAlias).append("\n");
+		sb.append("  id: ").append(getId()).append("\n");
+		sb.append("  name: ").append(getName()).append("\n");
+		sb.append("  displayName: ").append(getDisplayName()).append("\n");
+		sb.append("  defaultAlias: ").append(getDefaultAlias()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

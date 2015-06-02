@@ -20,77 +20,52 @@ package com.zeef.client.model;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ScratchPadLink {
+public class Activities {
 
-	private Long id = null;
-	private Long scratchPadId = null;
-	private String title = null;
-	private String url = null;
+	private List<Activity> activities = new ArrayList<Activity>();
+	private Long remainingNumberOfActivities = null;
 
 
 	/**
 	 **/
-	@JsonProperty("id")
-	public Long getId() {
-		return id;
+	@JsonProperty("activities")
+	public List<Activity> getActivities() {
+		return activities;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	/**
-	 **/
-	@JsonProperty("scratchPadId")
-	public Long getScratchPadId() {
-		return scratchPadId;
-	}
-
-	public void setScratchPadId(Long scratchPadId) {
-		this.scratchPadId = scratchPadId;
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
 	}
 
 
 	/**
-	 **/
-	@JsonProperty("title")
-	public String getTitle() {
-		return title;
+	 * The remaining number of activities matching the specified criteria, after the given page.
+	 */
+	@JsonProperty("remainingNumberOfActivities")
+	public Long getRemainingNumberOfActivities() {
+		return remainingNumberOfActivities;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	/**
-	 **/
-	@JsonProperty("url")
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
+	public void setRemainingNumberOfActivities(Long remainingNumberOfActivities) {
+		this.remainingNumberOfActivities = remainingNumberOfActivities;
 	}
 
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class ScratchPadLink {\n");
+		sb.append("class Activities {\n");
 
-		sb.append("  id: ").append(getId()).append("\n");
-		sb.append("  scratchPadId: ").append(getScratchPadId()).append("\n");
-		sb.append("  title: ").append(getTitle()).append("\n");
-		sb.append("  url: ").append(getUrl()).append("\n");
+		sb.append("  activities: ").append(getActivities()).append("\n");
+		sb.append("  remainingNumberOfActivities: ").append(getRemainingNumberOfActivities()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

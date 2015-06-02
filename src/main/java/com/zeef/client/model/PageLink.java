@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Link {
+public class PageLink extends Link {
 
 	private Integer curatorRanking = null;
 	private Integer popularityRanking = null;
@@ -36,6 +36,7 @@ public class Link {
 	private String hostname = null;
 	private String clickUrl = null;
 	private String faviconUrl = null;
+	private Long pageID = null;
 	private Long id = null;
 
 
@@ -137,6 +138,18 @@ public class Link {
 
 	/**
 	 **/
+	@JsonProperty("pageID")
+	public Long getPageID() {
+		return pageID;
+	}
+
+	public void setPageID(Long pageID) {
+		this.pageID = pageID;
+	}
+
+
+	/**
+	 **/
 	@JsonProperty("id")
 	public Long getId() {
 		return id;
@@ -150,8 +163,8 @@ public class Link {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("class Link {\n");
-
+		sb.append("class PageLink {\n");
+		sb.append("  " + super.toString()).append("\n");
 		sb.append("  curatorRanking: ").append(getCuratorRanking()).append("\n");
 		sb.append("  popularityRanking: ").append(getPopularityRanking()).append("\n");
 		sb.append("  title: ").append(getTitle()).append("\n");
@@ -160,6 +173,7 @@ public class Link {
 		sb.append("  hostname: ").append(getHostname()).append("\n");
 		sb.append("  clickUrl: ").append(getClickUrl()).append("\n");
 		sb.append("  faviconUrl: ").append(getFaviconUrl()).append("\n");
+		sb.append("  pageID: ").append(getPageID()).append("\n");
 		sb.append("  id: ").append(getId()).append("\n");
 		sb.append("}\n");
 		return sb.toString();

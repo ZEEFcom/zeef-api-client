@@ -26,6 +26,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ScratchPad {
 
@@ -75,9 +76,9 @@ public class ScratchPad {
 		StringBuilder sb = new StringBuilder();
 		sb.append("class ScratchPad {\n");
 
-		sb.append("  id: ").append(id).append("\n");
-		sb.append("  owner: ").append(owner).append("\n");
-		sb.append("  scratchPadLinks: ").append(scratchPadLinks).append("\n");
+		sb.append("  id: ").append(getId()).append("\n");
+		sb.append("  owner: ").append(getOwner()).append("\n");
+		sb.append("  scratchPadLinks: ").append(getScratchPadLinks()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

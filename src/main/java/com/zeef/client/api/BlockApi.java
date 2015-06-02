@@ -36,9 +36,11 @@ public class BlockApi {
 
 	private final ApiInvoker apiInvoker;
 
+
 	public BlockApi(ApiInvoker apiInvoker) {
 		this.apiInvoker = apiInvoker;
 	}
+
 
 	/**
 	 * Retrieve a block
@@ -47,7 +49,6 @@ public class BlockApi {
 	 * @return Block
 	 */
 	public Block getByBlockID(Long id) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -55,23 +56,11 @@ public class BlockApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
-
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
 
 		return apiInvoker.invokeAPI(new GenericType<Block>() {
-		}, "/block/{id}", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/block/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -82,15 +71,16 @@ public class BlockApi {
 	 * @param title
 	 * @param promoted
 	 * @param publiclyVisible
-	 * @param markdownText (Text blocks only)
-	 * @param markdownDescription (Link blocks only)
-	 * @param feedURL (Feed blocks only)
-	 * @param maxLinks (Feed blocks only)
+	 * @param markdownText           (Text blocks only)
+	 * @param markdownDescription    (Link blocks only)
+	 * @param feedURL                (Feed blocks only)
+	 * @param maxLinks               (Feed blocks only)
 	 * @param refreshIntervalMinutes (Feed blocks only)
 	 * @return Block
 	 */
 	public Block updateBlock(Long id, String title, Boolean promoted, Boolean publiclyVisible, String markdownText, String markdownDescription,
 			String feedURL, Integer maxLinks, Integer refreshIntervalMinutes) {
+
 		Object postBody = null;
 
 
@@ -99,7 +89,7 @@ public class BlockApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
 		String[] contentTypes = {
@@ -107,6 +97,7 @@ public class BlockApi {
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
@@ -146,6 +137,7 @@ public class BlockApi {
 			postBody = form;
 		}
 
+
 		return apiInvoker.invokeAPI(new GenericType<Block>() {
 		}, "/block/{id}", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
@@ -158,7 +150,6 @@ public class BlockApi {
 	 * @return void
 	 */
 	public void deleteBlockByID(Long id) {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -166,23 +157,10 @@ public class BlockApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
-
-
-		apiInvoker.invokeAPI(null, "/block/{id}", "DELETE", queryParams, pathParams, postBody, headerParams, contentType);
+		apiInvoker.invokeAPI(null, "/block/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
 	}
 
 	/**
@@ -196,6 +174,7 @@ public class BlockApi {
 	 * @return Block
 	 */
 	public Block addLink(Long id, String url, String title, String description, Integer ranking) {
+
 		Object postBody = null;
 
 
@@ -204,7 +183,7 @@ public class BlockApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
 		String[] contentTypes = {
@@ -212,6 +191,7 @@ public class BlockApi {
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
@@ -235,6 +215,7 @@ public class BlockApi {
 			postBody = form;
 		}
 
+
 		return apiInvoker.invokeAPI(new GenericType<Block>() {
 		}, "/block/{id}/addLink", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
@@ -249,6 +230,7 @@ public class BlockApi {
 	 * @return Block
 	 */
 	public Block moveLink(Long id, Long linkID, Integer newPosition) {
+
 		Object postBody = null;
 
 
@@ -257,7 +239,7 @@ public class BlockApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		pathParams.put("id", Objects.toString(id));
+		pathParams.put("id", ApiUtil.toString(id));
 
 
 		String[] contentTypes = {
@@ -265,6 +247,7 @@ public class BlockApi {
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
@@ -279,6 +262,7 @@ public class BlockApi {
 
 			postBody = form;
 		}
+
 
 		return apiInvoker.invokeAPI(new GenericType<Block>() {
 		}, "/block/{id}/moveLink", "POST", queryParams, pathParams, postBody, headerParams, contentType);

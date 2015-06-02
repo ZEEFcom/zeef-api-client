@@ -36,9 +36,11 @@ public class ScratchPadApi {
 
 	private final ApiInvoker apiInvoker;
 
+
 	public ScratchPadApi(ApiInvoker apiInvoker) {
 		this.apiInvoker = apiInvoker;
 	}
+
 
 	/**
 	 * Retrieve the scratch pad belonging to the current user
@@ -46,7 +48,6 @@ public class ScratchPadApi {
 	 * @return ScratchPad
 	 */
 	public ScratchPad getMine() {
-		Object postBody = null;
 
 
 		Map<String, String> pathParams = new HashMap<>();
@@ -54,20 +55,8 @@ public class ScratchPadApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
-		};
-
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
-
-		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
-
-			postBody = form;
-		}
-
 		return apiInvoker.invokeAPI(new GenericType<ScratchPad>() {
-		}, "/scratchPad/mine", "GET", queryParams, pathParams, postBody, headerParams, contentType);
+		}, "/scratchPad/mine", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
 
@@ -78,6 +67,7 @@ public class ScratchPadApi {
 	 * @return ScratchPad
 	 */
 	public ScratchPad addLink(String url) {
+
 		Object postBody = null;
 
 
@@ -92,6 +82,7 @@ public class ScratchPadApi {
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
 
+
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
 			if (url != null) {
@@ -101,6 +92,7 @@ public class ScratchPadApi {
 
 			postBody = form;
 		}
+
 
 		return apiInvoker.invokeAPI(new GenericType<ScratchPad>() {
 		}, "/scratchPad/mine/addLink", "POST", queryParams, pathParams, postBody, headerParams, contentType);
