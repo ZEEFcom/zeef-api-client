@@ -55,12 +55,12 @@ You can then add the zeef-api-client library to your project as a dependency:
     <dependency>
         <groupId>com.zeef</groupId>
         <artifactId>zeef-api-client</artifactId>
-        <version>2015.4</version>
+        <version>2015.6</version>
     </dependency>
 
 *Gradle*
 
-    compile 'com.zeef:zeef-api-client:2015.4'
+    compile 'com.zeef:zeef-api-client:2015.6'
 
 More information
 ---------------------
