@@ -22,7 +22,6 @@ package com.zeef.client.api;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.ws.rs.core.GenericType;
 
@@ -34,33 +33,6 @@ public class PagesApi {
 	private final ApiInvoker apiInvoker;
 
 
-	public enum PageType {
-		SUBJECT("SUBJECT"),
-		COMPANY("COMPANY"),
-		PERSONAL("PERSONAL"),;
-		private final String value;
-
-		private PageType(String value) {
-			this.value = value;
-		}
-
-		public String toString() {
-			return "" + value;
-		}
-
-		public static PageType getByValue(String value) {
-			for (PageType item : PageType.values()) {
-				if (Objects.equals(item.value, value)) {
-					return item;
-				}
-			}
-
-			return null;
-		}
-
-	}
-
-
 	public PagesApi(ApiInvoker apiInvoker) {
 		this.apiInvoker = apiInvoker;
 	}
@@ -69,19 +41,14 @@ public class PagesApi {
 	/**
 	 * Return all international pages
 	 *
-	 * @param type
 	 * @return PagesOverview
 	 */
-	public PagesOverview getAllInternationalPages(PageType type) {
+	public PagesOverview getAllInternationalPages() {
 
 
 		Map<String, String> pathParams = new HashMap<>();
 		Map<String, String> queryParams = new HashMap<>();
 		Map<String, String> headerParams = new HashMap<>();
-
-		if (type != null) {
-			queryParams.put("type", ApiUtil.toString(type));
-		}
 
 
 		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
@@ -93,19 +60,14 @@ public class PagesApi {
 	 * Return all pages for a given region
 	 *
 	 * @param regionCode
-	 * @param type
 	 * @return PagesOverview
 	 */
-	public PagesOverview getAllPagesByRegion(String regionCode, PageType type) {
+	public PagesOverview getAllPagesByRegion(String regionCode) {
 
 
 		Map<String, String> pathParams = new HashMap<>();
 		Map<String, String> queryParams = new HashMap<>();
 		Map<String, String> headerParams = new HashMap<>();
-
-		if (type != null) {
-			queryParams.put("type", ApiUtil.toString(type));
-		}
 
 
 		pathParams.put("regionCode", ApiUtil.toString(regionCode));

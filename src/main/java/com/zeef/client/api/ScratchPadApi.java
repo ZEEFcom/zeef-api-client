@@ -77,7 +77,7 @@ public class ScratchPadApi {
 
 
 		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
+				"application/x-www-form-urlencoded"
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";

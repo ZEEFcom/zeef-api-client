@@ -37,33 +37,6 @@ public class PageApi {
 	private final ApiInvoker apiInvoker;
 
 
-	public enum PageType {
-		SUBJECT("SUBJECT"),
-		COMPANY("COMPANY"),
-		PERSONAL("PERSONAL"),;
-		private final String value;
-
-		private PageType(String value) {
-			this.value = value;
-		}
-
-		public String toString() {
-			return "" + value;
-		}
-
-		public static PageType getByValue(String value) {
-			for (PageType item : PageType.values()) {
-				if (Objects.equals(item.value, value)) {
-					return item;
-				}
-			}
-
-			return null;
-		}
-
-	}
-
-
 	public enum UserCreatableBlockType {
 		LINK("LINK"),
 		TEXT("TEXT"),
@@ -103,10 +76,9 @@ public class PageApi {
 	 *
 	 * @param displayName
 	 * @param languageCode
-	 * @param type
 	 * @return Page
 	 */
-	public Page create(String displayName, String languageCode, PageType type) {
+	public Page create(String displayName, String languageCode) {
 
 		Object postBody = null;
 
@@ -117,7 +89,7 @@ public class PageApi {
 
 
 		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
+				"application/x-www-form-urlencoded"
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
@@ -131,10 +103,6 @@ public class PageApi {
 
 			if (languageCode != null) {
 				form.param("languageCode", Objects.toString(languageCode));
-			}
-
-			if (type != null) {
-				form.param("type", Objects.toString(type));
 			}
 
 
@@ -226,11 +194,10 @@ public class PageApi {
 	 * Update a page
 	 *
 	 * @param id
-	 * @param type
 	 * @param markdownDescription
 	 * @return Page
 	 */
-	public Page updatePage(Long id, PageType type, String markdownDescription) {
+	public Page updatePage(Long id, String markdownDescription) {
 
 		Object postBody = null;
 
@@ -244,7 +211,7 @@ public class PageApi {
 
 
 		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
+				"application/x-www-form-urlencoded"
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
@@ -252,10 +219,6 @@ public class PageApi {
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
 			Form form = new Form();
-			if (type != null) {
-				form.param("type", Objects.toString(type));
-			}
-
 			if (markdownDescription != null) {
 				form.param("markdownDescription", Objects.toString(markdownDescription));
 			}
@@ -295,7 +258,7 @@ public class PageApi {
 
 
 		String[] contentTypes = {
-				"application/x-www-form-urlencoded",
+				"application/x-www-form-urlencoded"
 		};
 
 		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
