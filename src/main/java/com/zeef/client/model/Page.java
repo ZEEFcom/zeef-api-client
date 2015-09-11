@@ -20,18 +20,27 @@ package com.zeef.client.model;
  * #L%
  */
 
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 
+@JsonTypeInfo(include = PROPERTY, use = NAME, property = "@type")
+@JsonSubTypes({
+		@JsonSubTypes.Type(name = "profilePage", value = ProfilePage.class),
+		@JsonSubTypes.Type(name = "subjectPage", value = SubjectPage.class),
+})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Page {
 
 	private Long id = null;
-	private Subject subject = null;
 	private User owner = null;
 	private Profile profile = null;
 	private String imageURL = null;
@@ -41,7 +50,7 @@ public class Page {
 	private String plainTextDescription = null;
 
 	public enum PageTypeEnum {
-		SUBJECT, COMPANY, PERSONAL,
+		SUBJECT, COMPANY, PERSONAL, PROFILE,
 	}
 
 	private PageTypeEnum pageType = null;
@@ -57,18 +66,6 @@ public class Page {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-
-	/**
-	 **/
-	@JsonProperty("subject")
-	public Subject getSubject() {
-		return subject;
-	}
-
-	public void setSubject(Subject subject) {
-		this.subject = subject;
 	}
 
 
@@ -186,7 +183,6 @@ public class Page {
 		sb.append("class Page {\n");
 
 		sb.append("  id: ").append(getId()).append("\n");
-		sb.append("  subject: ").append(getSubject()).append("\n");
 		sb.append("  owner: ").append(getOwner()).append("\n");
 		sb.append("  profile: ").append(getProfile()).append("\n");
 		sb.append("  imageURL: ").append(getImageURL()).append("\n");

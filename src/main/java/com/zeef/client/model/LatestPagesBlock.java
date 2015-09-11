@@ -39,7 +39,7 @@ public class LatestPagesBlock extends LinkBlock {
 	private FetchTypeEnum fetchType = null;
 
 	public enum StatisticPeriodEnum {
-		ALL_TIME, YEAR, TWO_MONTHS, MONTH, TWO_WEEKS, WEEK, YESTERDAY, TODAY,
+		ALL_TIME, SINCE_PAGE_CREATED, YEAR, FIVE_MONTHS, TWO_MONTHS, MONTH, TWO_WEEKS, WEEK, YESTERDAY, TODAY,
 	}
 
 	private StatisticPeriodEnum statisticPeriod = null;

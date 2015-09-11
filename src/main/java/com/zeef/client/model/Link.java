@@ -21,10 +21,19 @@ package com.zeef.client.model;
  */
 
 
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
+import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-
+@JsonTypeInfo(include = PROPERTY, use = NAME, property = "@type")
+@JsonSubTypes({
+		@JsonSubTypes.Type(name = "link", value = Link.class),
+		@JsonSubTypes.Type(name = "pageLink", value = PageLink.class),
+})
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Link {
 

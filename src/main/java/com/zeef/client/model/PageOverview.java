@@ -41,7 +41,7 @@ public class PageOverview {
 	private StatusEnum status = null;
 
 	public enum PageTypeEnum {
-		SUBJECT, COMPANY, PERSONAL,
+		SUBJECT, COMPANY, PERSONAL, PROFILE,
 	}
 
 	private PageTypeEnum pageType = null;
