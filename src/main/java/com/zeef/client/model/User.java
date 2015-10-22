@@ -31,6 +31,7 @@ public class User {
 	private Long id = null;
 	private String username = null;
 	private String fullName = null;
+	private String profileImageURL = null;
 
 
 	/**
@@ -69,6 +70,18 @@ public class User {
 	}
 
 
+	/**
+	 **/
+	@JsonProperty("profileImageURL")
+	public String getProfileImageURL() {
+		return profileImageURL;
+	}
+
+	public void setProfileImageURL(String profileImageURL) {
+		this.profileImageURL = profileImageURL;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -77,6 +90,7 @@ public class User {
 		sb.append("  id: ").append(getId()).append("\n");
 		sb.append("  username: ").append(getUsername()).append("\n");
 		sb.append("  fullName: ").append(getFullName()).append("\n");
+		sb.append("  profileImageURL: ").append(getProfileImageURL()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

@@ -31,6 +31,7 @@ import javax.ws.rs.core.GenericType;
 
 import com.zeef.client.ApiInvoker;
 import com.zeef.client.model.Link;
+import com.zeef.client.model.TitleSuggestions;
 
 public class LinkApi {
 
@@ -135,6 +136,28 @@ public class LinkApi {
 
 
 		apiInvoker.invokeAPI(null, "/link/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
+	}
+
+	/**
+	 * Retrieve title suggestions for a link
+	 *
+	 * @param id
+	 * @return TitleSuggestions
+	 */
+	public TitleSuggestions getTitleSuggestionsById(Long id) {
+
+
+		Map<String, String> pathParams = new HashMap<>();
+		Map<String, String> queryParams = new HashMap<>();
+		Map<String, String> headerParams = new HashMap<>();
+
+
+		pathParams.put("id", ApiUtil.toString(id));
+
+
+		return apiInvoker.invokeAPI(new GenericType<TitleSuggestions>() {
+		}, "/link/{id}/titleSuggestions", "GET", queryParams, pathParams, null, headerParams, null);
+
 	}
 
 }

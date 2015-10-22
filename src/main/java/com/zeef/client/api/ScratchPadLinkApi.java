@@ -31,6 +31,7 @@ import javax.ws.rs.core.GenericType;
 
 import com.zeef.client.ApiInvoker;
 import com.zeef.client.model.ScratchPadLink;
+import com.zeef.client.model.TitleSuggestions;
 
 public class ScratchPadLinkApi {
 
@@ -138,6 +139,28 @@ public class ScratchPadLinkApi {
 
 
 		apiInvoker.invokeAPI(null, "/scratchPadLink/{id}/moveToBlock", "POST", queryParams, pathParams, postBody, headerParams, contentType);
+	}
+
+	/**
+	 * Retrieve title suggestions for a scratch pad link
+	 *
+	 * @param id
+	 * @return TitleSuggestions
+	 */
+	public TitleSuggestions getTitleSuggestionsById(Long id) {
+
+
+		Map<String, String> pathParams = new HashMap<>();
+		Map<String, String> queryParams = new HashMap<>();
+		Map<String, String> headerParams = new HashMap<>();
+
+
+		pathParams.put("id", ApiUtil.toString(id));
+
+
+		return apiInvoker.invokeAPI(new GenericType<TitleSuggestions>() {
+		}, "/scratchPadLink/{id}/titleSuggestions", "GET", queryParams, pathParams, null, headerParams, null);
+
 	}
 
 }
