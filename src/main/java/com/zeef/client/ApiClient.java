@@ -1,4 +1,4 @@
-package com.zeef.client.api;
+package com.zeef.client;
 
 /*
  * #%L
@@ -20,40 +20,26 @@ package com.zeef.client.api;
  * #L%
  */
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.ws.rs.core.GenericType;
 
-import com.zeef.client.ApiClient;
-import com.zeef.client.model.User;
+public interface ApiClient extends AutoCloseable {
 
-public class UserApi {
+	String API_BASE_PATH = "https://localhost/api";
 
-	private final ApiClient apiClient;
+	void setApiBasePath(String apiBasePath);
 
+	void setAccessToken(String token);
 
-	public UserApi(ApiClient apiClient) {
-		this.apiClient = apiClient;
-	}
+	void setUserAgent(String userAgent);
 
+	void setHeader(String key, String value);
 
-	/**
-	 * Return the currently active user
-	 *
-	 * @return User
-	 */
-	public User getActiveUser() {
+	<T> T invokeAPI(GenericType<T> returnType, String path, String method, Map<String, String> queryParams, Map<String, String> pathParams,
+			Object postBody, Map<String, String> headerParams, String contentType);
 
-
-		Map<String, String> pathParams = new HashMap<>();
-		Map<String, String> queryParams = new HashMap<>();
-		Map<String, String> headerParams = new HashMap<>();
-
-
-		return apiClient.invokeAPI(new GenericType<User>() {
-		}, "/user/me", "GET", queryParams, pathParams, null, headerParams, null);
-
-	}
+	@Override
+	void close();
 
 }

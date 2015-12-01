@@ -29,12 +29,12 @@ import java.util.Objects;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 
-import com.zeef.client.ApiInvoker;
+import com.zeef.client.ApiClient;
 import com.zeef.client.model.Page;
 
 public class PageApi {
 
-	private final ApiInvoker apiInvoker;
+	private final ApiClient apiClient;
 
 
 	public enum UserCreatableBlockType {
@@ -66,8 +66,8 @@ public class PageApi {
 	}
 
 
-	public PageApi(ApiInvoker apiInvoker) {
-		this.apiInvoker = apiInvoker;
+	public PageApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
 	}
 
 
@@ -110,7 +110,7 @@ public class PageApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new GenericType<Page>() {
 		}, "/page/create", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -135,7 +135,7 @@ public class PageApi {
 		pathParams.put("username", ApiUtil.toString(username));
 
 
-		return apiInvoker.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new GenericType<Page>() {
 		}, "/page/{alias}/{username}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -163,7 +163,7 @@ public class PageApi {
 		pathParams.put("region", ApiUtil.toString(region));
 
 
-		return apiInvoker.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new GenericType<Page>() {
 		}, "/page/{alias}/{username}/{region}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -185,7 +185,7 @@ public class PageApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiInvoker.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new GenericType<Page>() {
 		}, "/page/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -228,7 +228,7 @@ public class PageApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new GenericType<Page>() {
 		}, "/page/{id}", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -291,7 +291,7 @@ public class PageApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new GenericType<Page>() {
 		}, "/page/{id}/addBlock", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -313,7 +313,7 @@ public class PageApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		apiInvoker.invokeAPI(null, "/page/{id}/requestPublication", "POST", queryParams, pathParams, null, headerParams, null);
+		apiClient.invokeAPI(null, "/page/{id}/requestPublication", "POST", queryParams, pathParams, null, headerParams, null);
 	}
 
 }

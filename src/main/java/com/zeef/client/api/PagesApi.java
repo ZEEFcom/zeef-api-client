@@ -25,16 +25,16 @@ import java.util.Map;
 
 import javax.ws.rs.core.GenericType;
 
-import com.zeef.client.ApiInvoker;
+import com.zeef.client.ApiClient;
 import com.zeef.client.model.PagesOverview;
 
 public class PagesApi {
 
-	private final ApiInvoker apiInvoker;
+	private final ApiClient apiClient;
 
 
-	public PagesApi(ApiInvoker apiInvoker) {
-		this.apiInvoker = apiInvoker;
+	public PagesApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
 	}
 
 
@@ -51,7 +51,7 @@ public class PagesApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
+		return apiClient.invokeAPI(new GenericType<PagesOverview>() {
 		}, "/pages/all", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -73,7 +73,7 @@ public class PagesApi {
 		pathParams.put("regionCode", ApiUtil.toString(regionCode));
 
 
-		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
+		return apiClient.invokeAPI(new GenericType<PagesOverview>() {
 		}, "/pages/all/{regionCode}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -91,7 +91,7 @@ public class PagesApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
+		return apiClient.invokeAPI(new GenericType<PagesOverview>() {
 		}, "/pages/mine", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -129,7 +129,7 @@ public class PagesApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<PagesOverview>() {
+		return apiClient.invokeAPI(new GenericType<PagesOverview>() {
 		}, "/pages/search", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}

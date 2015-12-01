@@ -29,16 +29,16 @@ import java.util.Objects;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 
-import com.zeef.client.ApiInvoker;
+import com.zeef.client.ApiClient;
 import com.zeef.client.model.Block;
 
 public class BlockApi {
 
-	private final ApiInvoker apiInvoker;
+	private final ApiClient apiClient;
 
 
-	public BlockApi(ApiInvoker apiInvoker) {
-		this.apiInvoker = apiInvoker;
+	public BlockApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
 	}
 
 
@@ -59,7 +59,7 @@ public class BlockApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiInvoker.invokeAPI(new GenericType<Block>() {
+		return apiClient.invokeAPI(new GenericType<Block>() {
 		}, "/block/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -138,7 +138,7 @@ public class BlockApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<Block>() {
+		return apiClient.invokeAPI(new GenericType<Block>() {
 		}, "/block/{id}", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -160,7 +160,7 @@ public class BlockApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		apiInvoker.invokeAPI(null, "/block/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
+		apiClient.invokeAPI(null, "/block/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
 	}
 
 	/**
@@ -216,7 +216,7 @@ public class BlockApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<Block>() {
+		return apiClient.invokeAPI(new GenericType<Block>() {
 		}, "/block/{id}/addLink", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -264,7 +264,7 @@ public class BlockApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<Block>() {
+		return apiClient.invokeAPI(new GenericType<Block>() {
 		}, "/block/{id}/moveLink", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}

@@ -36,7 +36,6 @@ public class Profile {
 	private String twitterURL = null;
 	private String linkedinURL = null;
 	private String googlePlusURL = null;
-	private String twentyFourSessionsURL = null;
 
 
 	/**
@@ -135,18 +134,6 @@ public class Profile {
 	}
 
 
-	/**
-	 **/
-	@JsonProperty("twentyFourSessionsURL")
-	public String getTwentyFourSessionsURL() {
-		return twentyFourSessionsURL;
-	}
-
-	public void setTwentyFourSessionsURL(String twentyFourSessionsURL) {
-		this.twentyFourSessionsURL = twentyFourSessionsURL;
-	}
-
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -160,7 +147,6 @@ public class Profile {
 		sb.append("  twitterURL: ").append(getTwitterURL()).append("\n");
 		sb.append("  linkedinURL: ").append(getLinkedinURL()).append("\n");
 		sb.append("  googlePlusURL: ").append(getGooglePlusURL()).append("\n");
-		sb.append("  twentyFourSessionsURL: ").append(getTwentyFourSessionsURL()).append("\n");
 		sb.append("}\n");
 		return sb.toString();
 	}

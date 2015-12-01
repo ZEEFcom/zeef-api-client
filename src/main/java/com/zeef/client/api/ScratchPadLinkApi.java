@@ -29,17 +29,17 @@ import java.util.Objects;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 
-import com.zeef.client.ApiInvoker;
+import com.zeef.client.ApiClient;
 import com.zeef.client.model.ScratchPadLink;
 import com.zeef.client.model.TitleSuggestions;
 
 public class ScratchPadLinkApi {
 
-	private final ApiInvoker apiInvoker;
+	private final ApiClient apiClient;
 
 
-	public ScratchPadLinkApi(ApiInvoker apiInvoker) {
-		this.apiInvoker = apiInvoker;
+	public ScratchPadLinkApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
 	}
 
 
@@ -60,7 +60,7 @@ public class ScratchPadLinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiInvoker.invokeAPI(new GenericType<ScratchPadLink>() {
+		return apiClient.invokeAPI(new GenericType<ScratchPadLink>() {
 		}, "/scratchPadLink/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -82,7 +82,7 @@ public class ScratchPadLinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		apiInvoker.invokeAPI(null, "/scratchPadLink/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
+		apiClient.invokeAPI(null, "/scratchPadLink/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class ScratchPadLinkApi {
 		}
 
 
-		apiInvoker.invokeAPI(null, "/scratchPadLink/{id}/moveToBlock", "POST", queryParams, pathParams, postBody, headerParams, contentType);
+		apiClient.invokeAPI(null, "/scratchPadLink/{id}/moveToBlock", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class ScratchPadLinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiInvoker.invokeAPI(new GenericType<TitleSuggestions>() {
+		return apiClient.invokeAPI(new GenericType<TitleSuggestions>() {
 		}, "/scratchPadLink/{id}/titleSuggestions", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}

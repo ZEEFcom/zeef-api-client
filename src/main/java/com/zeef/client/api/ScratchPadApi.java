@@ -29,16 +29,16 @@ import java.util.Objects;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 
-import com.zeef.client.ApiInvoker;
+import com.zeef.client.ApiClient;
 import com.zeef.client.model.ScratchPad;
 
 public class ScratchPadApi {
 
-	private final ApiInvoker apiInvoker;
+	private final ApiClient apiClient;
 
 
-	public ScratchPadApi(ApiInvoker apiInvoker) {
-		this.apiInvoker = apiInvoker;
+	public ScratchPadApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
 	}
 
 
@@ -55,7 +55,7 @@ public class ScratchPadApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		return apiInvoker.invokeAPI(new GenericType<ScratchPad>() {
+		return apiClient.invokeAPI(new GenericType<ScratchPad>() {
 		}, "/scratchPad/mine", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -94,7 +94,7 @@ public class ScratchPadApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<ScratchPad>() {
+		return apiClient.invokeAPI(new GenericType<ScratchPad>() {
 		}, "/scratchPad/mine/addLink", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}

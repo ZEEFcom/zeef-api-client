@@ -23,86 +23,75 @@ package com.zeef.client;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import javax.ws.rs.client.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 
-public final class ApiInvoker implements AutoCloseable {
+public final class JaxRsApiClient implements ApiClient {
 
-	private static ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+	private static final String DEFAULT_USER_AGENT = "ZEEF API Client";
 
-	private static Map<String, String> defaultHeaders = new HashMap<>();
-	private static String apiBasePath = "https://zeef.io/api";
+	private String apiBasePath = API_BASE_PATH;
 
 	private Map<String, String> headers = new HashMap<>();
 
 	private Client client;
 
-	public ApiInvoker() {
+	public JaxRsApiClient() {
 		client = ClientBuilder.newClient();
+		setUserAgent(DEFAULT_USER_AGENT);
 	}
 
-	public static void addDefaultHeader(String key, String value) {
-		readWriteLock.writeLock().lock();
-		try {
-			defaultHeaders.put(key, value);
-		}
-		finally {
-			readWriteLock.writeLock().unlock();
-		}
+	@Override
+	public void setApiBasePath(String apiBasePath) {
+		this.apiBasePath = apiBasePath;
 	}
 
-	public static String getApiBasePath() {
-		readWriteLock.readLock().lock();
-		try {
-			return apiBasePath;
-		}
-		finally {
-			readWriteLock.readLock().unlock();
-		}
+	@Override
+	public void setAccessToken(String token) {
+		setHeader("Authorization", "OmniLogin auth=" + token);
 	}
 
-	public static void setApiBasePath(String newApiBasePath) {
-		readWriteLock.writeLock().lock();
-		try {
-			apiBasePath = newApiBasePath;
-		}
-		finally {
-			readWriteLock.writeLock().unlock();
-		}
+	@Override
+	public void setUserAgent(String userAgent) {
+		setHeader("User-Agent", userAgent);
+
 	}
 
-	public void addHeader(String key, String value) {
+	@Override
+	public void setHeader(String key, String value) {
 		headers.put(key, value);
 	}
 
+	@Override
 	public <T> T invokeAPI(GenericType<T> returnType, String path, String method, Map<String, String> queryParams, Map<String, String> pathParams,
 			Object postBody, Map<String, String> headerParams, String contentType) {
 
-		readWriteLock.readLock().lock();
-		try {
-			T result = null;
-			switch (method) {
-				case "GET":
-					result = get(returnType, path, method, pathParams, queryParams, headerParams);
-					break;
-				case "POST":
-					result = post(returnType, path, method, pathParams, queryParams, postBody, headerParams, contentType);
-					break;
-				case "DELETE":
-					result = delete(returnType, path, method, pathParams, queryParams, headerParams);
-					break;
-				default:
-					throw new UnsupportedOperationException("Unsupported method type: " + method);
-			}
+		T result = null;
+		switch (method) {
+			case "GET":
+				result = get(returnType, path, method, pathParams, queryParams, headerParams);
+				break;
+			case "POST":
+				result = post(returnType, path, method, pathParams, queryParams, postBody, headerParams, contentType);
+				break;
+			case "DELETE":
+				result = delete(returnType, path, method, pathParams, queryParams, headerParams);
+				break;
+			default:
+				throw new UnsupportedOperationException("Unsupported method type: " + method);
+		}
 
-			return result;
-		}
-		finally {
-			readWriteLock.readLock().unlock();
-		}
+		return result;
+	}
+
+	@Override
+	public void close() {
+		client.close();
 	}
 
 	private <T> T delete(GenericType<T> returnType, String path, String method, Map<String, String> pathParams, Map<String, String> queryParams,
@@ -164,10 +153,6 @@ public final class ApiInvoker implements AutoCloseable {
 	}
 
 	private void setHeaders(Map<String, String> headerParams, Invocation.Builder invocationBuilder) {
-		for (Entry<String, String> defaultHeaderEntry : defaultHeaders.entrySet()) {
-			invocationBuilder.header(defaultHeaderEntry.getKey(), defaultHeaderEntry.getValue());
-		}
-
 		for (Entry<String, String> headerEntry : headers.entrySet()) {
 			invocationBuilder.header(headerEntry.getKey(), headerEntry.getValue());
 		}
@@ -188,10 +173,5 @@ public final class ApiInvoker implements AutoCloseable {
 			webTarget = webTarget.queryParam(queryParamEntry.getKey(), queryParamEntry.getValue());
 		}
 		return webTarget;
-	}
-
-	@Override
-	public void close() {
-		client.close();
 	}
 }

@@ -29,17 +29,17 @@ import java.util.Objects;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
 
-import com.zeef.client.ApiInvoker;
+import com.zeef.client.ApiClient;
 import com.zeef.client.model.Link;
 import com.zeef.client.model.TitleSuggestions;
 
 public class LinkApi {
 
-	private final ApiInvoker apiInvoker;
+	private final ApiClient apiClient;
 
 
-	public LinkApi(ApiInvoker apiInvoker) {
-		this.apiInvoker = apiInvoker;
+	public LinkApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
 	}
 
 
@@ -60,7 +60,7 @@ public class LinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiInvoker.invokeAPI(new GenericType<Link>() {
+		return apiClient.invokeAPI(new GenericType<Link>() {
 		}, "/link/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -113,7 +113,7 @@ public class LinkApi {
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<Link>() {
+		return apiClient.invokeAPI(new GenericType<Link>() {
 		}, "/link/{id}", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -135,7 +135,7 @@ public class LinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		apiInvoker.invokeAPI(null, "/link/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
+		apiClient.invokeAPI(null, "/link/{id}", "DELETE", queryParams, pathParams, null, headerParams, null);
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class LinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiInvoker.invokeAPI(new GenericType<TitleSuggestions>() {
+		return apiClient.invokeAPI(new GenericType<TitleSuggestions>() {
 		}, "/link/{id}/titleSuggestions", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
