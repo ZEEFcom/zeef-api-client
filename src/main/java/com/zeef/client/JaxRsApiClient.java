@@ -31,7 +31,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 
-public final class JaxRsApiClient implements ApiClient {
+public class JaxRsApiClient implements ApiClient {
 
 	private static final String DEFAULT_USER_AGENT = "ZEEF API Client";
 
