@@ -5,27 +5,27 @@ This project contains the client library for the ZEEF API.
 
 Usage
 ---------------------
-To use the ZEEF API, you need to have an [API access token](https://zeef.io/docs/api/#api_authentication) for the user you wish to access the API as. Once you have this token, you first need to create an ApiInvoker instance and set the authorization header for this instance:
+To use the ZEEF API, you need to have an [API access token](https://zeef.io/docs/api/#api_authentication) for the user you wish to access the API as. Once you have this token, you first need to create an ApiClient instance and set the authorization header for this instance:
 
-    ApiInvoker apiInvoker = new ApiInvoker();
-    apiInvoker.addHeader("Authorization", "OmniLogin auth=" + apiToken);
+    ApiClient apiClient = new JaxRsApiClient()
+    apiClient.setAccessToken(apiToken);
 
-Where apiToken is a variable that contains the API token. Please keep in mind that the ApiInvoker instances are not thread safe, but can be used for multiple requests within the same thread. The apiInvoker instance should be closed once it is no longer needed. 
+Where apiToken is a variable that contains the API token. Please keep in mind that the ApiClient instances are not thread safe, but can be used for multiple requests within the same thread. The apiClient instance should be closed once it is no longer needed. 
 
-You can then create an api object instance for the API endpoint you wish to use. Although the apiInvoker is not thread-safe, it can be reused for multiple api instances as long as they are used within the same thread and for the same user:
+You can then create an api object instance for the API endpoint you wish to use. Although the apiClient is not thread-safe, it can be reused for multiple api instances as long as they are used within the same thread and for the same user:
 
-    PageApi pageApi = new PageApi(apiInvoker);
-    BlockApi blockApi = new BlockApi(apiInvoker);
+    PageApi pageApi = new PageApi(apiClient);
+    BlockApi blockApi = new BlockApi(apiClient);
     
 That's all there is to it, now you can start invoking calls on the ZEEF API.
 
 
 ### Complete example ###
 
-    try(ApiInvoker apiInvoker = new ApiInvoker) {
-        apiInvoker.addHeader("Authorization", "OmniLogin auth=" + apiToken);
+    try(ApiClient apiClient = new JaxRsApiClient()) {
+        apiClient.setAccessToken(apiToken);
         
-        PagesApi pagesApi = new PagesApi(apiInvoker);
+        PagesApi pagesApi = new PagesApi(apiClient);
         for (PageOverview pageOverview: pagesApi.getMyPages().getPageOverviews()) {
             System.out.println(pageOverview.getUrl());
         }
