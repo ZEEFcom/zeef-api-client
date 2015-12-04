@@ -99,4 +99,9 @@ public class FormBody implements Map<String, String> {
 		return parameters.hashCode();
 	}
 
+	public FormBody addParameter(String key, String value) {
+		put(key, value);
+		return this;
+	}
+
 }
