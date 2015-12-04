@@ -23,9 +23,8 @@ package com.zeef.client.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.ws.rs.core.GenericType;
-
 import com.zeef.client.ApiClient;
+import com.zeef.client.ResponseType;
 import com.zeef.client.model.User;
 
 public class UserApi {
@@ -51,7 +50,7 @@ public class UserApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		return apiClient.invokeAPI(new GenericType<User>() {
+		return apiClient.invokeAPI(new ResponseType<User>() {
 		}, "/user/me", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}

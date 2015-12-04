@@ -25,9 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.ws.rs.core.GenericType;
-
 import com.zeef.client.ApiClient;
+import com.zeef.client.ResponseType;
 import com.zeef.client.model.Activities;
 
 public class ActivitiesApi {
@@ -100,7 +99,7 @@ public class ActivitiesApi {
 		}
 
 
-		return apiClient.invokeAPI(new GenericType<Activities>() {
+		return apiClient.invokeAPI(new ResponseType<Activities>() {
 		}, "/activities/followed", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -142,7 +141,7 @@ public class ActivitiesApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiClient.invokeAPI(new GenericType<Activities>() {
+		return apiClient.invokeAPI(new ResponseType<Activities>() {
 		}, "/activities/page/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -184,7 +183,7 @@ public class ActivitiesApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiClient.invokeAPI(new GenericType<Activities>() {
+		return apiClient.invokeAPI(new ResponseType<Activities>() {
 		}, "/activities/user/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}

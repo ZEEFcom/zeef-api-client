@@ -20,16 +20,15 @@ package com.zeef.client.api;
  * #L%
  */
 
-import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
+import static com.zeef.client.ApiClient.APPLICATION_FORM_URLENCODED;
+import static com.zeef.client.ApiClient.APPLICATION_JSON;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.GenericType;
 
 import com.zeef.client.ApiClient;
+import com.zeef.client.FormBody;
+import com.zeef.client.ResponseType;
 import com.zeef.client.model.ScratchPadLink;
 import com.zeef.client.model.TitleSuggestions;
 
@@ -60,7 +59,7 @@ public class ScratchPadLinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiClient.invokeAPI(new GenericType<ScratchPadLink>() {
+		return apiClient.invokeAPI(new ResponseType<ScratchPadLink>() {
 		}, "/scratchPadLink/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -69,7 +68,6 @@ public class ScratchPadLinkApi {
 	 * Delete a scratch pad link
 	 *
 	 * @param id
-	 * @return void
 	 */
 	public void delete(Long id) {
 
@@ -93,7 +91,6 @@ public class ScratchPadLinkApi {
 	 * @param title
 	 * @param description
 	 * @param ranking
-	 * @return void
 	 */
 	public void moveToBlock(Long id, Long blockId, String title, String description, Integer ranking) {
 
@@ -112,29 +109,29 @@ public class ScratchPadLinkApi {
 				"application/x-www-form-urlencoded"
 		};
 
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+		String contentType = contentTypes.length > 0 ? contentTypes[0] : APPLICATION_JSON;
 
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
+			FormBody formBody = new FormBody();
 			if (blockId != null) {
-				form.param("blockId", Objects.toString(blockId));
+				formBody.put("blockId", ApiUtil.toString(blockId));
 			}
 
 			if (title != null) {
-				form.param("title", Objects.toString(title));
+				formBody.put("title", ApiUtil.toString(title));
 			}
 
 			if (description != null) {
-				form.param("description", Objects.toString(description));
+				formBody.put("description", ApiUtil.toString(description));
 			}
 
 			if (ranking != null) {
-				form.param("ranking", Objects.toString(ranking));
+				formBody.put("ranking", ApiUtil.toString(ranking));
 			}
 
 
-			postBody = form;
+			postBody = formBody;
 		}
 
 
@@ -158,7 +155,7 @@ public class ScratchPadLinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiClient.invokeAPI(new GenericType<TitleSuggestions>() {
+		return apiClient.invokeAPI(new ResponseType<TitleSuggestions>() {
 		}, "/scratchPadLink/{id}/titleSuggestions", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}

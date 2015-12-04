@@ -1,4 +1,4 @@
-package com.zeef.client;
+package com.zeef.client.jaxrs;
 
 /*
  * #%L
@@ -29,11 +29,16 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.GenericType;
+
+import com.zeef.client.ApiClient;
+import com.zeef.client.FormBody;
+import com.zeef.client.ResponseType;
 
 public class JaxRsApiClient implements ApiClient {
 
-	private static final String DEFAULT_USER_AGENT = "ZEEF API Client";
+	private static final String DEFAULT_USER_AGENT = "ZEEF API Client 2015.8";
 
 	private String apiBasePath = API_BASE_PATH;
 
@@ -68,19 +73,21 @@ public class JaxRsApiClient implements ApiClient {
 	}
 
 	@Override
-	public <T> T invokeAPI(GenericType<T> returnType, String path, String method, Map<String, String> queryParams, Map<String, String> pathParams,
+	public <T> T invokeAPI(ResponseType<T> responseType, String path, String method, Map<String, String> queryParams, Map<String, String> pathParams,
 			Object postBody, Map<String, String> headerParams, String contentType) {
 
-		T result = null;
+		GenericType<T> returnType = new GenericType<>(responseType.getType());
+
+		T result;
 		switch (method) {
 			case "GET":
-				result = get(returnType, path, method, pathParams, queryParams, headerParams);
+				result = get(returnType, path, pathParams, queryParams, headerParams);
 				break;
 			case "POST":
-				result = post(returnType, path, method, pathParams, queryParams, postBody, headerParams, contentType);
+				result = post(returnType, path, pathParams, queryParams, postBody, headerParams, contentType);
 				break;
 			case "DELETE":
-				result = delete(returnType, path, method, pathParams, queryParams, headerParams);
+				result = delete(returnType, path, pathParams, queryParams, headerParams);
 				break;
 			default:
 				throw new UnsupportedOperationException("Unsupported method type: " + method);
@@ -94,7 +101,7 @@ public class JaxRsApiClient implements ApiClient {
 		client.close();
 	}
 
-	private <T> T delete(GenericType<T> returnType, String path, String method, Map<String, String> pathParams, Map<String, String> queryParams,
+	private <T> T delete(GenericType<T> returnType, String path, Map<String, String> pathParams, Map<String, String> queryParams,
 			Map<String, String> headerParams) {
 		WebTarget webTarget = getWebTargetWithResolvedParams(path, pathParams, queryParams);
 
@@ -110,7 +117,7 @@ public class JaxRsApiClient implements ApiClient {
 		return null;
 	}
 
-	private <T> T post(GenericType<T> returnType, String path, String method, Map<String, String> pathParams, Map<String, String> queryParams,
+	private <T> T post(GenericType<T> returnType, String path, Map<String, String> pathParams, Map<String, String> queryParams,
 			Object postBody, Map<String, String> headerParams, String contentType) {
 
 		WebTarget webTarget = getWebTargetWithResolvedParams(path, pathParams, queryParams);
@@ -119,8 +126,19 @@ public class JaxRsApiClient implements ApiClient {
 
 		setHeaders(headerParams, invocationBuilder);
 
+		Entity<?> entity;
+		if (APPLICATION_FORM_URLENCODED.equals(contentType) && postBody instanceof FormBody) {
+			Form form = new Form();
 
-		Entity<?> entity = Entity.entity(postBody, contentType);
+			for (Entry<String, String> formParameter : ((FormBody) postBody).entrySet()) {
+				form.param(formParameter.getKey(), formParameter.getValue());
+			}
+
+			entity = Entity.entity(form, contentType);
+		}
+		else {
+			entity = Entity.entity(postBody, contentType);
+		}
 
 		if (returnType != null) {
 			return invocationBuilder.post(entity, returnType);
@@ -130,7 +148,7 @@ public class JaxRsApiClient implements ApiClient {
 		return null;
 	}
 
-	private <T> T get(GenericType<T> returnType, String path, String method, Map<String, String> pathParams, Map<String, String> queryParams,
+	private <T> T get(GenericType<T> returnType, String path, Map<String, String> pathParams, Map<String, String> queryParams,
 			Map<String, String> headerParams) {
 
 		WebTarget webTarget = getWebTargetWithResolvedParams(path, pathParams, queryParams);
@@ -139,12 +157,7 @@ public class JaxRsApiClient implements ApiClient {
 
 		setHeaders(headerParams, invocationBuilder);
 
-		if (Void.class.equals(returnType)) {
-			invocationBuilder.get();
-			return null;
-		}
-
-		if (returnType != null) {
+		if (returnType != null && !Void.class.equals(returnType.getType())) {
 			return invocationBuilder.get(returnType);
 		}
 

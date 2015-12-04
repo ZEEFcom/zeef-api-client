@@ -23,9 +23,8 @@ package com.zeef.client.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.ws.rs.core.GenericType;
-
 import com.zeef.client.ApiClient;
+import com.zeef.client.ResponseType;
 import com.zeef.client.model.PagesOverview;
 
 public class PagesApi {
@@ -51,7 +50,7 @@ public class PagesApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		return apiClient.invokeAPI(new GenericType<PagesOverview>() {
+		return apiClient.invokeAPI(new ResponseType<PagesOverview>() {
 		}, "/pages/all", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -73,7 +72,7 @@ public class PagesApi {
 		pathParams.put("regionCode", ApiUtil.toString(regionCode));
 
 
-		return apiClient.invokeAPI(new GenericType<PagesOverview>() {
+		return apiClient.invokeAPI(new ResponseType<PagesOverview>() {
 		}, "/pages/all/{regionCode}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -91,7 +90,7 @@ public class PagesApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		return apiClient.invokeAPI(new GenericType<PagesOverview>() {
+		return apiClient.invokeAPI(new ResponseType<PagesOverview>() {
 		}, "/pages/mine", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -129,7 +128,7 @@ public class PagesApi {
 		}
 
 
-		return apiClient.invokeAPI(new GenericType<PagesOverview>() {
+		return apiClient.invokeAPI(new ResponseType<PagesOverview>() {
 		}, "/pages/search", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}

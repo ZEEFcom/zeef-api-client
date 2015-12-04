@@ -20,16 +20,16 @@ package com.zeef.client.api;
  * #L%
  */
 
-import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
+import static com.zeef.client.ApiClient.APPLICATION_FORM_URLENCODED;
+import static com.zeef.client.ApiClient.APPLICATION_JSON;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.GenericType;
-
 import com.zeef.client.ApiClient;
+import com.zeef.client.FormBody;
+import com.zeef.client.ResponseType;
 import com.zeef.client.model.Page;
 
 public class PageApi {
@@ -92,25 +92,25 @@ public class PageApi {
 				"application/x-www-form-urlencoded"
 		};
 
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+		String contentType = contentTypes.length > 0 ? contentTypes[0] : APPLICATION_JSON;
 
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
+			FormBody formBody = new FormBody();
 			if (displayName != null) {
-				form.param("displayName", Objects.toString(displayName));
+				formBody.put("displayName", ApiUtil.toString(displayName));
 			}
 
 			if (languageCode != null) {
-				form.param("languageCode", Objects.toString(languageCode));
+				formBody.put("languageCode", ApiUtil.toString(languageCode));
 			}
 
 
-			postBody = form;
+			postBody = formBody;
 		}
 
 
-		return apiClient.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new ResponseType<Page>() {
 		}, "/page/create", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -135,7 +135,7 @@ public class PageApi {
 		pathParams.put("username", ApiUtil.toString(username));
 
 
-		return apiClient.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new ResponseType<Page>() {
 		}, "/page/{alias}/{username}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -163,7 +163,7 @@ public class PageApi {
 		pathParams.put("region", ApiUtil.toString(region));
 
 
-		return apiClient.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new ResponseType<Page>() {
 		}, "/page/{alias}/{username}/{region}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -185,7 +185,7 @@ public class PageApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiClient.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new ResponseType<Page>() {
 		}, "/page/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -214,21 +214,21 @@ public class PageApi {
 				"application/x-www-form-urlencoded"
 		};
 
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+		String contentType = contentTypes.length > 0 ? contentTypes[0] : APPLICATION_JSON;
 
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
+			FormBody formBody = new FormBody();
 			if (markdownDescription != null) {
-				form.param("markdownDescription", Objects.toString(markdownDescription));
+				formBody.put("markdownDescription", ApiUtil.toString(markdownDescription));
 			}
 
 
-			postBody = form;
+			postBody = formBody;
 		}
 
 
-		return apiClient.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new ResponseType<Page>() {
 		}, "/page/{id}", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -261,37 +261,37 @@ public class PageApi {
 				"application/x-www-form-urlencoded"
 		};
 
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+		String contentType = contentTypes.length > 0 ? contentTypes[0] : APPLICATION_JSON;
 
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
+			FormBody formBody = new FormBody();
 			if (blockType != null) {
-				form.param("blockType", Objects.toString(blockType));
+				formBody.put("blockType", ApiUtil.toString(blockType));
 			}
 
 			if (title != null) {
-				form.param("title", Objects.toString(title));
+				formBody.put("title", ApiUtil.toString(title));
 			}
 
 			if (columnIndex != null) {
-				form.param("columnIndex", Objects.toString(columnIndex));
+				formBody.put("columnIndex", ApiUtil.toString(columnIndex));
 			}
 
 			if (publiclyVisible != null) {
-				form.param("publiclyVisible", Objects.toString(publiclyVisible));
+				formBody.put("publiclyVisible", ApiUtil.toString(publiclyVisible));
 			}
 
 			if (promoted != null) {
-				form.param("promoted", Objects.toString(promoted));
+				formBody.put("promoted", ApiUtil.toString(promoted));
 			}
 
 
-			postBody = form;
+			postBody = formBody;
 		}
 
 
-		return apiClient.invokeAPI(new GenericType<Page>() {
+		return apiClient.invokeAPI(new ResponseType<Page>() {
 		}, "/page/{id}/addBlock", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -300,7 +300,6 @@ public class PageApi {
 	 * Request publication of a page
 	 *
 	 * @param id
-	 * @return void
 	 */
 	public void requestPublication(Long id) {
 

@@ -22,9 +22,11 @@ package com.zeef.client;
 
 import java.util.Map;
 
-import javax.ws.rs.core.GenericType;
-
 public interface ApiClient extends AutoCloseable {
+
+	String APPLICATION_FORM_URLENCODED = "application/x-www-form-urlencoded";
+
+	String APPLICATION_JSON = "application/json";
 
 	String API_BASE_PATH = "https://zeef.io/api";
 
@@ -36,7 +38,7 @@ public interface ApiClient extends AutoCloseable {
 
 	void setHeader(String key, String value);
 
-	<T> T invokeAPI(GenericType<T> returnType, String path, String method, Map<String, String> queryParams, Map<String, String> pathParams,
+	<T> T invokeAPI(ResponseType<T> returnType, String path, String method, Map<String, String> queryParams, Map<String, String> pathParams,
 			Object postBody, Map<String, String> headerParams, String contentType);
 
 	@Override

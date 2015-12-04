@@ -20,16 +20,15 @@ package com.zeef.client.api;
  * #L%
  */
 
-import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
+import static com.zeef.client.ApiClient.APPLICATION_FORM_URLENCODED;
+import static com.zeef.client.ApiClient.APPLICATION_JSON;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.GenericType;
 
 import com.zeef.client.ApiClient;
+import com.zeef.client.FormBody;
+import com.zeef.client.ResponseType;
 import com.zeef.client.model.Link;
 import com.zeef.client.model.TitleSuggestions;
 
@@ -60,7 +59,7 @@ public class LinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiClient.invokeAPI(new GenericType<Link>() {
+		return apiClient.invokeAPI(new ResponseType<Link>() {
 		}, "/link/{id}", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -91,29 +90,29 @@ public class LinkApi {
 				"application/x-www-form-urlencoded"
 		};
 
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+		String contentType = contentTypes.length > 0 ? contentTypes[0] : APPLICATION_JSON;
 
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
+			FormBody formBody = new FormBody();
 			if (url != null) {
-				form.param("url", Objects.toString(url));
+				formBody.put("url", ApiUtil.toString(url));
 			}
 
 			if (title != null) {
-				form.param("title", Objects.toString(title));
+				formBody.put("title", ApiUtil.toString(title));
 			}
 
 			if (description != null) {
-				form.param("description", Objects.toString(description));
+				formBody.put("description", ApiUtil.toString(description));
 			}
 
 
-			postBody = form;
+			postBody = formBody;
 		}
 
 
-		return apiClient.invokeAPI(new GenericType<Link>() {
+		return apiClient.invokeAPI(new ResponseType<Link>() {
 		}, "/link/{id}", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
@@ -122,7 +121,6 @@ public class LinkApi {
 	 * Delete a link
 	 *
 	 * @param id
-	 * @return void
 	 */
 	public void delete(Long id) {
 
@@ -155,7 +153,7 @@ public class LinkApi {
 		pathParams.put("id", ApiUtil.toString(id));
 
 
-		return apiClient.invokeAPI(new GenericType<TitleSuggestions>() {
+		return apiClient.invokeAPI(new ResponseType<TitleSuggestions>() {
 		}, "/link/{id}/titleSuggestions", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
