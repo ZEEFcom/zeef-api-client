@@ -9,7 +9,7 @@
     <artifactId>zeef-api-client</artifactId>
     <packaging>jar</packaging>
     <name>ZEEF API Client</name>
-    <version>2015.8-SNAPSHOT</version>
+    <version>2016.1-SNAPSHOT</version>
 
     <url>https://github.com/ZEEFcom/zeef-api-client</url>
     <organization>
