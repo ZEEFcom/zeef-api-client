@@ -20,25 +20,24 @@ package com.zeef.client.api;
  * #L%
  */
 
-import static javax.ws.rs.core.MediaType.APPLICATION_FORM_URLENCODED;
+import static com.zeef.client.ApiClient.APPLICATION_FORM_URLENCODED;
+import static com.zeef.client.ApiClient.APPLICATION_JSON;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.GenericType;
-
-import com.zeef.client.ApiInvoker;
+import com.zeef.client.ApiClient;
+import com.zeef.client.FormBody;
+import com.zeef.client.ResponseType;
 import com.zeef.client.model.ScratchPad;
 
 public class ScratchPadApi {
 
-	private final ApiInvoker apiInvoker;
+	private final ApiClient apiClient;
 
 
-	public ScratchPadApi(ApiInvoker apiInvoker) {
-		this.apiInvoker = apiInvoker;
+	public ScratchPadApi(ApiClient apiClient) {
+		this.apiClient = apiClient;
 	}
 
 
@@ -55,7 +54,7 @@ public class ScratchPadApi {
 		Map<String, String> headerParams = new HashMap<>();
 
 
-		return apiInvoker.invokeAPI(new GenericType<ScratchPad>() {
+		return apiClient.invokeAPI(new ResponseType<ScratchPad>() {
 		}, "/scratchPad/mine", "GET", queryParams, pathParams, null, headerParams, null);
 
 	}
@@ -80,21 +79,21 @@ public class ScratchPadApi {
 				"application/x-www-form-urlencoded"
 		};
 
-		String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+		String contentType = contentTypes.length > 0 ? contentTypes[0] : APPLICATION_JSON;
 
 
 		if (contentType.equals(APPLICATION_FORM_URLENCODED)) {
-			Form form = new Form();
+			FormBody formBody = new FormBody();
 			if (url != null) {
-				form.param("url", Objects.toString(url));
+				formBody.put("url", ApiUtil.toString(url));
 			}
 
 
-			postBody = form;
+			postBody = formBody;
 		}
 
 
-		return apiInvoker.invokeAPI(new GenericType<ScratchPad>() {
+		return apiClient.invokeAPI(new ResponseType<ScratchPad>() {
 		}, "/scratchPad/mine/addLink", "POST", queryParams, pathParams, postBody, headerParams, contentType);
 
 	}
