@@ -76,7 +76,7 @@ public class JaxRsApiClient implements ApiClient {
 	public <T> T invokeAPI(ResponseType<T> responseType, String path, String method, Map<String, String> queryParams, Map<String, String> pathParams,
 			Object postBody, Map<String, String> headerParams, String contentType) {
 
-		GenericType<T> returnType = new GenericType<>(responseType.getType());
+		GenericType<T> returnType = (responseType != null) ? new GenericType<T>(responseType.getType()) : null;
 
 		T result;
 		switch (method) {
