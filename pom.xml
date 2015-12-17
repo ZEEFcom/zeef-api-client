@@ -9,7 +9,7 @@
     <artifactId>zeef-api-client</artifactId>
     <packaging>jar</packaging>
     <name>ZEEF API Client</name>
-    <version>2015.8</version>
+    <version>2015.8.2</version>
 
     <url>https://github.com/ZEEFcom/zeef-api-client</url>
     <organization>
@@ -35,7 +35,7 @@
 
     <properties>
         <java.version>1.7</java.version>
-        <resteasy.version>3.0.10.Final</resteasy.version>
+        <resteasy.version>3.0.14.Final</resteasy.version>
     </properties>
 
     <build>
